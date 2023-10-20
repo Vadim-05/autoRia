@@ -1,6 +1,6 @@
 spacy
 tqdm
-label-studio
 fastapi
 pydantic
 uvicorn
+numpy==1.21

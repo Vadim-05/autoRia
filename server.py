@@ -33,8 +33,10 @@ class Item(BaseModel):
 
 @app.post("/ner/predict/")
 async def ner_predict(item: Item):
+    text, entities = predict(item.description)
     return {
-        "result": predict(item.description)
+        "text": text,
+        "entities": entities,
     }
 
 
