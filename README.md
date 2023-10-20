@@ -1,3 +1,8 @@
+Встановлюємо залежності для python
+```
+pip install -r requirements.txt
+```
+
 Запуск серверу
 ```bash
 python3 server.py
