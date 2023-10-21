@@ -14,7 +14,7 @@ root_dir = os.path.join(current_dir, "../")
 def load_label_studio_json_annotation():
     annotations = []
     for json_path in glob.glob(os.path.join(root_dir, "datasets/labelstudio_json_annotation/*")):
-        with open(json_path) as fp:
+        with open(json_path, encoding="utf-8") as fp:
             data = json.load(fp)
         annotations.extend(data)
     return annotations
@@ -28,6 +28,8 @@ def format_annotations(annotations):
         entities = set()
 
         text = data["description"]
+        if data.get("label", None) is None:
+            continue
         for result in data["label"]:
             for label in result["labels"]:
                 label_counter[label] += 1
