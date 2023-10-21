@@ -31,6 +31,7 @@ async function transformData(obj) {
         'Можливий торг': obj.auctionPossible === true ? 'так' : 'ні',
         'Можливий обмін': obj.exchangePossible === true ? 'так' : 'ні',
         Опис: obj.autoData.description,
+        Фотографія: obj.photoData.seoLinkB ?? 'відсутня',
     };
 
     switch (obj.autoData.mainCurrency) {
