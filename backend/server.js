@@ -14,6 +14,6 @@ app.use(router.allowedMethods());
 const connectToDatabase = require('./db/db.mjs');
 connectToDatabase();
 */
-app.listen(process.env.SERVER_PORT, () => {
-    console.log(`Server is running on port ${process.env.SERVER_PORT}`);
+app.listen(3000, () => {
+    console.log(`Server is running on port 3000`);
 });
