@@ -1,4 +1,3 @@
-// db.js
 const axios = require('axios');
 
 async function getData(id) {
@@ -49,27 +48,7 @@ async function transformData(obj) {
         }
     }
 
-    switch (obj.autoData.statusId) {
-        case 1: {
-            transformedObj['Технічний стан'] = 'повністю непошкоджене';
-            break;
-        }
-        case 2: {
-            transformedObj['Технічний стан'] =
-                'професійно відремонтовані пошкодження';
-            break;
-        }
-        case 3: {
-            transformedObj['Технічний стан'] = 'не відремонтовані пошкодження';
-            break;
-        }
-        case 4: {
-            transformedObj['Технічний стан'] = 'не на ходу';
-            break;
-        }
-    }
-
     return transformedObj;
 }
 
-module.exports = getData;
+module.exports.getData = getData;
