@@ -1,21 +1,21 @@
-const { Client } = require('pg');
+// db.js
+const axios = require('axios');
 
-const client = new Client({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-});
-
-async function connectToDatabase() {
+async function getData(id) {
     try {
-        await client.connect();
-        console.log('Connected to the database');
+        const apiKey = 'hPakOudm8AaUyt5aMie8MKqY0xtcIuDWowepg3pa';
+        const url = `https://developers.ria.com/auto/info?api_key=${apiKey}&auto_id=${id}`;
+        const response = await axios.get(url);
+
+        if (response.status === 200) {
+            console.log(id);
+            return response.data;
+        } else {
+            throw new Error('Request failed with status: ' + response.status);
+        }
     } catch (error) {
-        console.error('Error connecting to the database', error);
+        throw error;
     }
 }
 
-module.exports.client = client;
-module.exports.connectToDatabase = connectToDatabase;
+module.exports = getData;

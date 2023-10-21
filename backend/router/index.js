@@ -1,21 +1,15 @@
 const Router = require('koa-router');
 const router = new Router();
 
-router.get('/get/1', async (ctx) => {
+const getData = require('../db/db.js');
+
+router.get('/get/:id', async (ctx) => {
     try {
-        const result = {
-            id: 1,
-            'коробка передач': 'ручна',
-            'Тип приводу': 'передній',
-            'Участь в ДТП': 'так',
-            'Під пригон': 'так',
-            'Технічний стан': 'повністо непошкоджене',
-            'Лакофарбове покриття': 'як нове',
-            'Ціна автомобіля': '$10000',
-            'Можливий торг': 'так',
-            'Можливий обмін': 'так',
-        };
-        ctx.body = result;
+        const id = ctx.params.id;
+
+        const rezult = await getData(id);
+
+        ctx.body = rezult;
     } catch (error) {
         console.error('Error retrieving tree_nodes', error);
         ctx.status = 500;
