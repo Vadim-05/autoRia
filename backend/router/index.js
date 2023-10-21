@@ -8,7 +8,7 @@ router.get('/get/:id', async (ctx) => {
         const id = ctx.params.id;
 
         const rezult = await getData(id);
-
+        console.log(rezult);
         ctx.body = rezult;
     } catch (error) {
         console.error('Error retrieving tree_nodes', error);

@@ -8,14 +8,67 @@ async function getData(id) {
         const response = await axios.get(url);
 
         if (response.status === 200) {
-            console.log(id);
-            return response.data;
+            const obj = await response.data;
+            const currentCar = await transformData(obj);
+            return currentCar;
         } else {
             throw new Error('Request failed with status: ' + response.status);
         }
     } catch (error) {
         throw error;
     }
+}
+
+async function transformData(obj) {
+    const transformedObj = {
+        id: obj.autoData.autoId,
+        КПП: obj.autoData.gearboxName,
+        'Тип приводу': obj.autoData.driveName,
+        'Участь в ДТП': obj.autoInfoBar.damage === true ? 'так' : 'ні',
+        'Під пригон': obj.autoInfoBar.abroad === true ? 'так' : 'ні',
+        'Технічний стан': 'не вказано',
+        'Лакофарбове покриття': 'не вказано',
+        'Можливий торг': obj.auctionPossible === true ? 'так' : 'ні',
+        'Можливий обмін': obj.exchangePossible === true ? 'так' : 'ні',
+        Опис: obj.autoData.description,
+    };
+
+    switch (obj.autoData.mainCurrency) {
+        case 'UAH': {
+            transformedObj['Ціна автомобіля'] = obj.UAH + ' грн';
+            break;
+        }
+        case 'USD': {
+            transformedObj['Ціна автомобіля'] = obj.USD + ' $';
+            break;
+        }
+        case 'EUR': {
+            transformedObj['Ціна автомобіля'] = obj.EUR + ' євро';
+            break;
+        }
+    }
+
+    switch (obj.autoData.statusId) {
+        case 1: {
+            transformedObj['Технічний стан'] = 'повністю непошкоджене';
+            break;
+        }
+        case 2: {
+            transformedObj['Технічний стан'] =
+                'професійно відремонтовані пошкодження';
+            break;
+        }
+        case 3: {
+            transformedObj['Технічний стан'] = 'не відремонтовані пошкодження';
+            break;
+        }
+        case 4: {
+            transformedObj['Технічний стан'] = 'не на ходу';
+            break;
+        }
+    }
+
+    return transformedObj;
 }
 
 module.exports = getData;
