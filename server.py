@@ -46,6 +46,6 @@ def run_api():
                 port=int(os.environ.get('PORT', 8080)),
                 reload=os.environ.get('DEBUG', False))
 
-
+print (__name__)
 if __name__ == "__main__":
     run_api()
