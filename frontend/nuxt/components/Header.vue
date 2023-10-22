@@ -25,6 +25,13 @@
 		text-decoration: none;
 		display: contents;
 		color: #414042;
+		transition: text-decoration 0.3s;
+		
+	}
+	.link:hover {
+		/* text-decoration: underline; */
+ 		color: #db5c4c;
+		border-top-color: #db5c4c;
 	}
 	.logo-picture,.picture-flag{
 		max-width: 38px;
