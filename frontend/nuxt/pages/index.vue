@@ -46,7 +46,13 @@
 
 </script>
 
-<style>
+<style scoped>
+.v-text-field > .v-input__control > .v-input__slot:before {
+  border-style: none; 
+}
+    v-text-field:hover{
+      background:none !important;
+    }
     .input-data input {
       font-size: 18px;
     }
@@ -59,6 +65,12 @@
       background: none;
       margin: 0 40px 0 40px;
     }
+    .input-data:hover{
+      background:none;
+    }
+    field .v-field--active input {
+    opacity: 0;
+}
     .container-search{
         max-width: 960px;
         height: calc(100vh - 160px);

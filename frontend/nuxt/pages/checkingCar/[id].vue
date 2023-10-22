@@ -43,7 +43,7 @@ import { VDataTable } from "vuetify/labs/VDataTable";
               itemsPerPage: 9,
               headers: [
                 { title: 'Параметри', key: 'title'},
-                { title: 'Дані з реєстрів', key: 'title'},
+                { title: 'Дані з реєстрів', key: 'tiktle'},
                 { title: "Інфо від продавця", key: 'body'},
               ],
           };
@@ -60,8 +60,17 @@ import { VDataTable } from "vuetify/labs/VDataTable";
      async apiCar(){
          await axios.get(`http://localhost:3000/get/${this.$route.params.id}`)
         .then((response) => {
-          this.dataCar= response.data
-          this.formatDataCar = Object.entries(response.data).map(x=> {return {title:x[0], body: x[1] }});
+          console.log(response.data);
+          this.dataCar= response.data.dataFromApi;
+          // this.formatDataCar = Object.entries(response.data.dataFromApi, response.data.dataTransformedFromModel).map((x,y)=> {return {title:x[0], body: x[1],tiktle: y[1] }}); 
+
+          this.formatDataCar = Object.keys(response.data.dataFromApi).map(key => ({
+  title: key,
+  body: response.data.dataFromApi[key],
+  tiktle: response.data.dataTransformedFromModel[key]
+}));
+          
+          // this.dataTransformedFromModel = Object.entries(response.data.dataFromApi).map(x=> {return {title:x[0], body: x[1] }});
         })
         .catch((error) => {
           console.error(error);
